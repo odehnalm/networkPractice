@@ -9,7 +9,6 @@
 
 from threading import Thread
 import socket
-import netutils
 import random
 import queue
 import time
@@ -103,7 +102,7 @@ def consumer(q):
 
             bstr = q.get()
             if bstr == b"":
-                print(bstr)
+                # print(bstr)
                 output.close()
                 break
             output.write(bstr)
@@ -125,9 +124,11 @@ def client(): # called at the end of the file
             while True:
                 data = input.read(1024 * booksize)
                 if data == b"":
+                    s.sendall(data)
+                    input.close()
                     break
                 s.sendall(data)
-                print(data)
+                # print(data)
 
         s.close()
 
